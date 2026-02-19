@@ -15,7 +15,7 @@ export class TaskService {
         return task;
     }
 
-    public insertTask(task: any): string {
+    public insertTask(task: any): any {
         return task;
     }
     
