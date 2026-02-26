@@ -1,0 +1,32 @@
+-- ? POSTGRES
+CREATE TABLE users(
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(150) NOT NULL,
+    lastname VARCHAR(250)
+);
+
+CREATE TABLE tasks(
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    description VARCHAR(250) NOT NULL,
+    priority BOOLEAN NOT NULL,
+    user_id INTEGER NOT NULL REFERENCES users(id) 
+);
+
+-- ! MYSQL
+/*
+CREATE TABLE users(
+    id SMALLINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(150) NOT NULL,
+    lastname VARCHAR(250)
+);
+
+CREATE TABLE tasks(
+    id SMALLINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100) NOT NULL,
+    description VARCHAR(250) NOT NULL,
+    priority BOOLEAN NOT NULL,
+    user_id SMALLINT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users(id) 
+);
+*/

@@ -6,12 +6,13 @@ export class TaskController {
 
     constructor(private taskScv: TaskService) {}
 
-    getAllTasks(): string {
+    @Get()
+    async getAllTasks(): Promise<any[]> {
         return this.taskScv.getAllTask();
     }
 
     @Get(":id")
-    public listTaskById(@Param () params: any): string {
+    public listTaskById(@Param () params: any): Promise<any[]> {
         console.log(params.id);
         return this.taskScv.getAllTask();
     }
