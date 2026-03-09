@@ -1,14 +1,38 @@
-import { Controller, Get } from "@nestjs/common";
+import { Body, Controller, Get, HttpCode, HttpStatus, Post } from "@nestjs/common";
 import { AuthService } from "./auth.service";
+import { LoginDto } from "./dto/login.dto";
 
 @Controller("api/auth")
 export class AuthController {
 
     constructor(private authScv: AuthService) {}
     
-    @Get("login")
-    public login() {
+    @Post("/login")
+    @HttpCode(HttpStatus.OK)
+    public login(@Body() loginDto: LoginDto): string {
+        const { username, password } = loginDto;
+
+        //TODO: Validar el usuario y contraseña
+        //TODO: Obtener la informacion del usuario (payload) 
+        //TODO: Generar el JWT
+        //TODO: Devolver el JWT encriptado
         return this.authScv.login();
     }
     
+    // POST /auth/register
+
+    @Get("/me")
+    public getProfile() {
+
+    }
+
+    @Post("/refresh")
+    public refreshToken() {
+        
+    }
+
+    @Post("/logout")
+    public logout() {
+        
+    }
 }

@@ -28,6 +28,14 @@ export class TaskService {
 
         return task as unknown as Task | null;
     }
+
+    public async insertTask(taskDto: CreateTaskDto): Promise<Task> {
+        const newTask = await this.prisma.task.create({
+            data: taskDto as any
+        });
+
+        return newTask as unknown as Task;
+    }
     
     public async updateTask(id: number, taskUpdated: UpdateTaskDto): Promise<Task> {
         const task = await this.prisma.task.update({
@@ -36,14 +44,6 @@ export class TaskService {
         });
 
         return task as unknown as Task;
-    }
-
-    public async insertTask(taskDto: CreateTaskDto): Promise<Task> {
-        const newTask = await this.prisma.task.create({
-            data: taskDto as any
-        });
-
-        return newTask as unknown as Task;
     }
     
     public async deleteTask(id: number): Promise<boolean> {

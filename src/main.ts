@@ -40,3 +40,10 @@ bootstrap();
 // ! npm i @nestjs/swagger
 
 // ! git commit 
+
+// ? BCRYPT
+// ! npm i bcrypt
+// ! npm i -D @types/bcrypt
+
+// ? Crear un servicio
+// ! git 

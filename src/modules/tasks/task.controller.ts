@@ -43,7 +43,7 @@ export class TaskController {
         try {
             await this.taskScv.deleteTask(id);
         } catch {
-            throw new HttpException("Task not found", HttpStatus.NOT_FOUND)
+            throw new HttpException("Tarea no encontrada", HttpStatus.NOT_FOUND)
         }
 
         return true;
