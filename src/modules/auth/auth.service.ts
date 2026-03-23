@@ -1,9 +1,17 @@
 import { Injectable } from "@nestjs/common";
+import { PrismaService } from "src/common/services/prisma.service";
+import { User } from "@prisma/client";
 
 @Injectable()
 export class AuthService {
 
-    public login(): string {
-        return "Sesión correcta";
+    constructor(
+        private readonly prisma: PrismaService) { }
+
+    public async getUserByUsername(username: string): Promise<User | null> {
+        return await this.prisma.user.findFirst({
+            where: { username }
+        });
     }
+
 }

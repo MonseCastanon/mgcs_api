@@ -1,22 +1,43 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, Post } from "@nestjs/common";
+import { Body, Controller, Get, HttpCode, HttpStatus, Post, UnauthorizedException } from "@nestjs/common";
 import { AuthService } from "./auth.service";
 import { LoginDto } from "./dto/login.dto";
+import { UtilService } from "src/common/services/util.service";
 
 @Controller("api/auth")
 export class AuthController {
 
-    constructor(private authScv: AuthService) {}
+    constructor(
+        private readonly authScv: AuthService,
+        private readonly utilSvc: UtilService
+    ) {}
     
     @Post("/login")
     @HttpCode(HttpStatus.OK)
-    public login(@Body() loginDto: LoginDto): string {
-        const { username, password } = loginDto;
+    public async login(@Body() login: LoginDto): Promise<any> {
+        const { username, password } = login;
 
-        //TODO: Validar el usuario y contraseña
-        //TODO: Obtener la informacion del usuario (payload) 
-        //TODO: Generar el JWT
-        //TODO: Devolver el JWT encriptado
-        return this.authScv.login();
+        const user = await this.authScv.getUserByUsername(username);
+
+        if (!user) {
+            throw new UnauthorizedException("Usuario o contraseña incorrecta")
+        }
+
+        if (await this.utilSvc.checkPassword(password, user.password!)) {
+            // Obtener la información del usuario (payload)
+            const { password, username, ...payload } = user;
+
+            // Generar el JWT
+            const access_token = await this.utilSvc.generateJWT(payload);
+
+            // Generar el Refresh Token
+            const refresh_token = await this.utilSvc.generateJWT(payload, "7d");
+
+            // Devolver los tokens
+            return {
+                access_token,
+                refresh_token
+            }
+        }
     }
     
     // POST /auth/register

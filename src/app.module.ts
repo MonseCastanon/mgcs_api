@@ -3,22 +3,11 @@ import { AuthModule } from './modules/auth/auth.module';
 import { TaskModule } from './modules/tasks/task.module';
 import { UserModule } from './modules/user/user.module';
 import { UtilService } from './common/services/util.service';
+import { JwtService } from '@nestjs/jwt';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [AuthModule, TaskModule, UserModule],
-  providers: [UtilService]
+  imports: [ConfigModule.forRoot({isGlobal: true}), AuthModule, TaskModule, UserModule],
+  providers: [UtilService, JwtService]
 })
-export class AppModule {}
-
-
-/** 
- // ! Crear un caso de uso de tareas. Creat carpeta de tareas
- * Tareas  
-  dot, Service, Worker
-
-
-  get con lsitado de tareas
-  Api \task
-
-  // ! Agreagr dto, interdaces, crear un metodo que cree tareas
- */
+export class AppModule { }

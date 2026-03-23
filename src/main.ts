@@ -46,4 +46,4 @@ bootstrap();
 // ! npm i -D @types/bcrypt
 
 // ? Crear un servicio
-// ! git 
+// ! git commit -a -m "fix: CRUD de usuarios y creacion de rutas para la autenticación." 

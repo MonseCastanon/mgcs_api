@@ -9,18 +9,19 @@ datasource db {
 }
 
 generator client {
-  provider = "prisma-client"
+  provider = "prisma-client-js"
   output   = "../generated/prisma"
 }
 
 model User {
-  id         Int      @id @default(autoincrement())
-  name       String   @db.VarChar(200)
-  lastname   String   @db.VarChar(300)
-  username   String   @db.VarChar(100)
-  password   String   @db.Text
-  created_at DateTime @default(now())
-  task       Task[]
+  id            Int      @id @default(autoincrement())
+  name          String   @db.VarChar(200)
+  lastname      String   @db.VarChar(300)
+  username      String   @db.VarChar(100)
+  password      String   @db.Text
+  refresh_token String?  @db.Text
+  created_at    DateTime @default(now())
+  task          Task[]
 }
 
 model Task {
