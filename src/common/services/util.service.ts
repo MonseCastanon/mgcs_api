@@ -7,7 +7,7 @@ export class UtilService {
 
     constructor(private readonly jwtSvc: JwtService) { }
 
-    public async hashPassword(password: string) {
+    public async hash(password: string) {
 
         return await bcrypt.hash(password, 10);
     }
