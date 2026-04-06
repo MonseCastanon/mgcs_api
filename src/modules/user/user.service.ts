@@ -20,7 +20,7 @@ export class UserService {
                 name: true,
                 lastname: true,
                 username: true,
-                password: false,
+                password: true,
                 created_at: true
             }
         })

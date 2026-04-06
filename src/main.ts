@@ -3,6 +3,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { AllExceptionfilter } from './common/filters/http-exception.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -11,6 +12,9 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe({
     whitelist: true
   }));
+
+  // ? Uso de filtros globales
+  app.useGlobalFilters(new AllExceptionfilter());
 
   // ? Configuracion de swagger
   const config = new DocumentBuilder()
@@ -47,3 +51,5 @@ bootstrap();
 
 // ? Crear un servicio
 // ! git commit -a -m "fix: CRUD de usuarios y creacion de rutas para la autenticación." 
+
+// ! git commit -a -m "fix: Uso de custom errors y creación de logs."

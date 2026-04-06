@@ -32,7 +32,7 @@ export class UserController {
     public async insertUser(@Body() user: CreateUserDto): Promise<User> {
         const result = await this.userScv.insertUser(user);
 
-        const encryptedPassword = await this.utilScv.hashPassword(user.password);
+        const encryptedPassword = await this.utilScv.hash(user.password);
         user.password = encryptedPassword;
         if (result == undefined)
             throw new HttpException("Usuario no registrado", HttpStatus.INTERNAL_SERVER_ERROR)
